@@ -9,12 +9,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.heaven7.android.log.LogClient;
+import com.heaven7.android.log.LogFilterOptions;
+import com.heaven7.android.log.LogRecord;
+import com.heaven7.android.log.RemoteLogContext;
 import com.heaven7.android.log_server.demo.BaseActivity;
 import com.heaven7.android.log_server.demo.R;
 import com.heaven7.core.util.TextWatcherAdapter;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.InjectView;
@@ -25,6 +31,8 @@ import butterknife.OnClick;
  * Created by heaven7 on 2016/7/6.
  */
 public class LogLookOverActivity extends BaseActivity {
+
+    static final SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @InjectView(R.id.spinner_level)
     Spinner spinnerLevel;
@@ -57,8 +65,9 @@ public class LogLookOverActivity extends BaseActivity {
     TextInputEditText etContainsContent;
 
     private LogClient mClient;
-    private int mLevel ;
-    private int mLowestLevel ;
+
+    private boolean mDirAllowed;
+    private LogFilterOptions mFilterOps;
 
     @Override
     protected int getlayoutId() {
@@ -68,6 +77,7 @@ public class LogLookOverActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         mClient = new LogClient(this);
+        mFilterOps = new LogFilterOptions();
 
         setSpinners();
         setListeners();
@@ -78,9 +88,54 @@ public class LogLookOverActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 final String str = s.toString();
-                if(str.length() != 0  && !new File(str).isDirectory()){
-                    //TODO
-                   // etDir.setError("");
+                if(str.length() > 0 ){
+                    if(!new File(str).isDirectory()) {
+                        showToast(R.string.notice_not_directory);
+                        mDirAllowed = false;
+                        mFilterOps.dir = null;
+                    }else{
+                        mDirAllowed = true;
+                        mFilterOps.dir = str;
+                    }
+                }else{
+                    mDirAllowed = true;
+                    mFilterOps.dir = null;
+                }
+            }
+        });
+        etStartTime.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                final String str = s.toString();
+                if(s.length() > 0 ){
+                    try {
+                        final Date date = sFormat.parse(str);
+                        mFilterOps.startTime = date.getTime();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        mFilterOps.startTime = 0;
+                        showToast(R.string.notice_invalid_start_time);
+                    }
+                }else{
+                    mFilterOps.startTime = 0;
+                }
+            }
+        });
+        etEndTime.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                final String str = s.toString();
+                if(s.length() > 0 ){
+                    try {
+                        final Date date = sFormat.parse(str);
+                        mFilterOps.endTime = date.getTime();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        mFilterOps.endTime = 0;
+                        showToast(R.string.notice_invalid_end_time);
+                    }
+                }else{
+                    mFilterOps.endTime = 0;
                 }
             }
         });
@@ -100,7 +155,7 @@ public class LogLookOverActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogLevel item = (LogLevel) spinnerLevel.getAdapter().getItem(position);
-                mLevel = item.level;
+                mFilterOps.level = item.level;
             }
         });
 
@@ -110,7 +165,7 @@ public class LogLookOverActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogLevel item = (LogLevel) spinnerLevel.getAdapter().getItem(position);
-                mLowestLevel = item.level;
+                mFilterOps.lowestLevel = item.level;
             }
         });
     }
@@ -123,7 +178,23 @@ public class LogLookOverActivity extends BaseActivity {
 
     @OnClick(R.id.bt_query_log)
     public void onClickQuery(View v){
-        //query log
+        if(mDirAllowed){
+            mFilterOps.tag = etTag.getText().toString();
+            mFilterOps.tagPrefix = etTagPrefix.getText().toString();
+            mFilterOps.methodTag = etMethodTag.getText().toString();
+            mFilterOps.methodTagPrefix = etMethodTagPrefix.getText().toString();
+            mFilterOps.exceptionName = etExceptionName.getText().toString();
+            mFilterOps.exceptionShortName = etExceptionShortName.getText().toString();
+            mFilterOps.content = etContainsContent.getText().toString();
+            mClient.readLog(mFilterOps, new RemoteLogContext.IReadCallback() {
+                @Override
+                public void onResult(List<LogRecord> records) {
+                    //TODO
+                }
+            });
+        }else{
+            showToast(R.string.notice_not_directory);
+        }
     }
 
     static class LogLevel{
