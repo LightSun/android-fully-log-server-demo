@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">Android-fully-log-server-demo</string>
     <string name="title_item_detail">Item Detail</string>
+
+    <string name="level">level：</string>
+    <string name="lowestLevel">lowestLevel: </string>
+    <string name="startTime">startTime: </string>
+    <string name="endTime">endTime: </string>
+    <string name="tag">tag：</string>
+    <string name="methodTag">methodTag：</string>
+    <string name="exceptionName">exceptionClassName: </string>
+    <string name="dir">directory: </string>
+    <string name="content">contains content: </string>
+
+    <string name="message">message: </string>
+    <string name="notice">please input or select your log filter options: </string>
+
+    <string name="tag_prefix">tagPrefix: </string>
+    <string name="methodTag_prefix">methodTagPrefix: </string>
+    <string name="exception_short_name">ExceptionShortClassname: </string>
+
+    <string name="start_query_log">begin query log</string>
+    <string name="notice_log_time">the input time filter like: 2016-06-06</string>
+
 </resources>
