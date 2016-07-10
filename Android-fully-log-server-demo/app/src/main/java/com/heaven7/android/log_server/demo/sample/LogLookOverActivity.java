@@ -2,6 +2,7 @@ package com.heaven7.android.log_server.demo.sample;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +15,7 @@ import com.heaven7.android.log.LogRecord;
 import com.heaven7.android.log.RemoteLogContext;
 import com.heaven7.android.log_server.demo.BaseActivity;
 import com.heaven7.android.log_server.demo.R;
+import com.heaven7.core.util.Logger;
 import com.heaven7.core.util.TextWatcherAdapter;
 
 import java.io.File;
@@ -32,6 +34,7 @@ import butterknife.OnClick;
  */
 public class LogLookOverActivity extends BaseActivity {
 
+    private static final String TAG = "LogLookOverActivity";
     static final SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @InjectView(R.id.spinner_level)
@@ -66,8 +69,9 @@ public class LogLookOverActivity extends BaseActivity {
 
     private LogClient mClient;
 
-    private boolean mDirAllowed;
+    private boolean mDirAllowed = true;
     private LogFilterOptions mFilterOps;
+    private DialogFragment mDialogFragment;
 
     @Override
     protected int getlayoutId() {
@@ -149,30 +153,49 @@ public class LogLookOverActivity extends BaseActivity {
         list.add(new LogLevel("Warning",LogClient.LEVEL_WARNING));
         list.add(new LogLevel("Error",LogClient.LEVEL_ERROR));
 
-        spinnerLevel.setAdapter(new ArrayAdapter<LogLevel>(this,android.R.layout.simple_spinner_dropdown_item,list));
-        spinnerLevel.setSelection(0);
-        spinnerLevel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        final ArrayAdapter<LogLevel> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLevel.setAdapter(adapter);
+        spinnerLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 LogLevel item = (LogLevel) spinnerLevel.getAdapter().getItem(position);
                 mFilterOps.level = item.level;
             }
-        });
-
-        spinnerLowestLevel.setAdapter(new ArrayAdapter<LogLevel>(this, android.R.layout.simple_spinner_dropdown_item, list));
-        spinnerLowestLevel.setSelection(0);
-        spinnerLowestLevel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LogLevel item = (LogLevel) spinnerLevel.getAdapter().getItem(position);
-                mFilterOps.lowestLevel = item.level;
+            public void onNothingSelected(AdapterView<?> parent) {
+                mFilterOps.level = 0;
             }
         });
+        spinnerLevel.setSelection(0);
+
+        final ArrayAdapter<LogLevel> adapter2 = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, list);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLowestLevel.setAdapter(adapter2);
+        spinnerLowestLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                LogLevel item = (LogLevel) spinnerLowestLevel.getAdapter().getItem(position);
+                mFilterOps.lowestLevel = item.level;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mFilterOps.lowestLevel = 0;
+            }
+        });
+        spinnerLowestLevel.setSelection(0);
+
     }
 
     @Override
     protected void onDestroy() {
         mClient.destroy();
+        if(mDialogFragment!=null) {
+            mDialogFragment.dismiss();
+            mDialogFragment = null;
+        }
         super.onDestroy();
     }
 
@@ -189,13 +212,15 @@ public class LogLookOverActivity extends BaseActivity {
             mClient.readLog(mFilterOps, new RemoteLogContext.IReadCallback() {
                 @Override
                 public void onResult(List<LogRecord> records) {
-                    //TODO
+                    Logger.i(TAG, "readLog_onResult", "size = " + records.size());
+                   mDialogFragment =  ReadResultDialogFragment.show(getSupportFragmentManager(),records);
                 }
             });
         }else{
             showToast(R.string.notice_not_directory);
         }
     }
+
 
     static class LogLevel{
         String name ;
@@ -204,6 +229,11 @@ public class LogLookOverActivity extends BaseActivity {
         public LogLevel(String name, int level) {
             this.name = name;
             this.level = level;
+        }
+
+        @Override
+        public String toString() {
+            return name;
         }
     }
 }

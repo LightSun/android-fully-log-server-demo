@@ -1,7 +1,7 @@
 <resources>
     <string name="notice_not_directory">The directory is invalid.</string>
-    <string name="notice_invalid_end_time">The filter option 'endTime' is invalid.</string>
-    <string name="notice_invalid_start_time">The filter option 'startTime' is invalid.</string>
+    <string name="notice_invalid_end_time">The filter option endTime is invalid.</string>
+    <string name="notice_invalid_start_time">The filter option startTime is invalid.</string>
 
 
 </resources>
