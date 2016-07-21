@@ -212,8 +212,13 @@ public class LogLookOverActivity extends BaseActivity {
             mClient.readLog(mFilterOps, new RemoteLogContext.IReadCallback() {
                 @Override
                 public void onResult(List<LogRecord> records) {
-                    Logger.i(TAG, "readLog_onResult", "size = " + records.size());
-                   mDialogFragment =  ReadResultDialogFragment.show(getSupportFragmentManager(),records);
+                    int size = records.size();
+                    Logger.i(TAG, "readLog_onResult", "size = " + size);
+                    if(size > 0) {
+                        mDialogFragment = ReadResultDialogFragment.show(getSupportFragmentManager(), records);
+                    }else{
+                        showToast("no log record.");
+                    }
                 }
             });
         }else{
