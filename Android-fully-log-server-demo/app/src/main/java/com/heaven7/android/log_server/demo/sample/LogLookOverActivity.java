@@ -1,6 +1,7 @@
 package com.heaven7.android.log_server.demo.sample;
 
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
@@ -9,10 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.heaven7.android.log.IReadCallback;
 import com.heaven7.android.log.LogClient;
 import com.heaven7.android.log.LogFilterOptions;
 import com.heaven7.android.log.LogRecord;
-import com.heaven7.android.log.RemoteLogContext;
 import com.heaven7.android.log_server.demo.BaseActivity;
 import com.heaven7.android.log_server.demo.R;
 import com.heaven7.core.util.Logger;
@@ -72,6 +73,19 @@ public class LogLookOverActivity extends BaseActivity {
     private boolean mDirAllowed = true;
     private LogFilterOptions mFilterOps;
     private DialogFragment mDialogFragment;
+
+    private final IReadCallback mReadCallback = new IReadCallback.Stub() {
+        @Override
+        public void onResult(List<LogRecord> records) throws RemoteException {
+            int size = records.size();
+            Logger.i(TAG, "readLog_onResult", "size = " + size);
+            if(size > 0) {
+                mDialogFragment = ReadResultDialogFragment.show(getSupportFragmentManager(), records);
+            }else{
+                showToast("no log record.");
+            }
+        }
+    };
 
     @Override
     protected int getlayoutId() {
@@ -186,7 +200,6 @@ public class LogLookOverActivity extends BaseActivity {
             }
         });
         spinnerLowestLevel.setSelection(0);
-
     }
 
     @Override
@@ -209,18 +222,7 @@ public class LogLookOverActivity extends BaseActivity {
             mFilterOps.exceptionName = etExceptionName.getText().toString();
             mFilterOps.exceptionShortName = etExceptionShortName.getText().toString();
             mFilterOps.content = etContainsContent.getText().toString();
-            mClient.readLog(mFilterOps, new RemoteLogContext.IReadCallback() {
-                @Override
-                public void onResult(List<LogRecord> records) {
-                    int size = records.size();
-                    Logger.i(TAG, "readLog_onResult", "size = " + size);
-                    if(size > 0) {
-                        mDialogFragment = ReadResultDialogFragment.show(getSupportFragmentManager(), records);
-                    }else{
-                        showToast("no log record.");
-                    }
-                }
-            });
+            mClient.readLog(mFilterOps, mReadCallback);
         }else{
             showToast(R.string.notice_not_directory);
         }
