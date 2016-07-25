@@ -2,9 +2,11 @@ package com.heaven7.android.log_server.demo.sample;
 
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +20,7 @@ import com.heaven7.android.log_server.demo.BaseActivity;
 import com.heaven7.android.log_server.demo.R;
 import com.heaven7.core.util.Logger;
 import com.heaven7.core.util.TextWatcherAdapter;
+import com.heaven7.core.util.Toaster;
 
 import java.io.File;
 import java.text.ParseException;
@@ -25,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -67,6 +71,9 @@ public class LogLookOverActivity extends BaseActivity {
 
     @InjectView(R.id.et_contains_content)
     TextInputEditText etContainsContent;
+
+    @InjectView(R.id.fab)
+    FloatingActionButton fab;
 
     private LogClient mClient;
 
@@ -201,6 +208,12 @@ public class LogLookOverActivity extends BaseActivity {
             }
         });
         spinnerLowestLevel.setSelection(0);
+    }
+
+    @OnClick(R.id.fab)
+    public void onClickAddLog(View v){
+        mClient.i(TAG, "onClickAddLog", "this is a test! --->"+ new Random().nextDouble());
+        Toaster.show(this, R.string.notice_log_add_ok, Gravity.CENTER);
     }
 
     @Override

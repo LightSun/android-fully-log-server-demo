@@ -3,330 +3,348 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/notice"
-            android:textColor="@android:color/holo_red_light"
-            android:padding="5dp"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            >
-            <TextView
-                android:id="@+id/tv_str_level"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/level"/>
-            <Spinner
-                android:id="@+id/spinner_level"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                />
-        </LinearLayout>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             >
             <TextView
-                android:id="@+id/tv_str_lowestLevel"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/lowestLevel"/>
-
-            <Spinner
-                android:id="@+id/spinner_lowestLevel"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
+                android:text="@string/notice"
+                android:textColor="@android:color/holo_red_light"
+                android:padding="5dp"
                 />
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_level"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/level"/>
+                <Spinner
+                    android:id="@+id/spinner_level"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_lowestLevel"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lowestLevel"/>
+
+                <Spinner
+                    android:id="@+id/spinner_lowestLevel"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_dir"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dir"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_dir"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:padding="2dp"
+                    />
+            </LinearLayout>
+
             <TextView
-                android:id="@+id/tv_str_dir"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/dir"/>
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_dir"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:lines="1"
-                android:padding="2dp"
+                android:text="@string/notice_log_time"
+                android:textColor="@android:color/holo_red_light"
+                android:padding="5dp"
                 />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_startTime"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/startTime"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_startTime"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:padding="2dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_endTime"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/endTime"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_endTime"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:padding="2dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_tag"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tag"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_tag"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:padding="2dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_tag_prefix"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tag_prefix"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_tag_prefix"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:padding="2dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_methodTag"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/methodTag"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_methodTag"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:padding="2dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_methodTag_prefix"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/methodTag_prefix"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_methodTag_prefix"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:padding="2dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_exceptionName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exceptionName"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_exceptionName"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:padding="2dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_exceptionShortName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exception_short_name"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_exceptionShortName"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:padding="2dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_str_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/content"/>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_contains_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:singleLine="false"
+                    android:padding="2dp"
+                    />
+            </LinearLayout>
+            <Button
+                android:id="@+id/bt_query_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textAllCaps="false"
+                android:text="@string/start_query_log"
+                />
+
+
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/notice_log_time"
-            android:textColor="@android:color/holo_red_light"
-            android:padding="5dp"
-            />
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_gravity="right|bottom"
+            android:src="@android:drawable/ic_input_add"
+            app:layout_anchorGravity="bottom|end" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            >
-            <TextView
-                android:id="@+id/tv_str_startTime"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/startTime"/>
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_startTime"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:lines="1"
-                android:padding="2dp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            >
-            <TextView
-                android:id="@+id/tv_str_endTime"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/endTime"/>
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_endTime"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:lines="1"
-                android:padding="2dp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            >
-            <TextView
-                android:id="@+id/tv_str_tag"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/tag"/>
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_tag"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:lines="1"
-                android:padding="2dp"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            >
-            <TextView
-                android:id="@+id/tv_str_tag_prefix"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/tag_prefix"/>
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_tag_prefix"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:lines="1"
-                android:padding="2dp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            >
-            <TextView
-                android:id="@+id/tv_str_methodTag"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/methodTag"/>
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_methodTag"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:lines="1"
-                android:padding="2dp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            >
-            <TextView
-                android:id="@+id/tv_str_methodTag_prefix"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/methodTag_prefix"/>
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_methodTag_prefix"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:lines="1"
-                android:padding="2dp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            >
-            <TextView
-                android:id="@+id/tv_str_exceptionName"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/exceptionName"/>
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_exceptionName"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:lines="1"
-                android:padding="2dp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            >
-            <TextView
-                android:id="@+id/tv_str_exceptionShortName"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/exception_short_name"/>
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_exceptionShortName"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:lines="1"
-                android:padding="2dp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            >
-            <TextView
-                android:id="@+id/tv_str_content"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/content"/>
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_contains_content"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:singleLine="false"
-                android:padding="2dp"
-                />
-        </LinearLayout>
-        <Button
-            android:id="@+id/bt_query_log"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textAllCaps="false"
-            android:text="@string/start_query_log"
-            />
+    </FrameLayout>
 
 
-    </LinearLayout>
 
 
 
