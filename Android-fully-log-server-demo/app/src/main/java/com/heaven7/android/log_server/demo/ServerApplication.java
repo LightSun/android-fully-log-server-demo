@@ -14,7 +14,7 @@ public class ServerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         mServer = new LogServer(this);
     }
+
 }

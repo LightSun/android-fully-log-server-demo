@@ -161,6 +161,7 @@ public class LogLookOverActivity extends BaseActivity {
 
     private void setSpinners() {
         List<LogLevel> list = new ArrayList<>();
+        list.add(new LogLevel("None",0));
         list.add(new LogLevel("Verbose",LogClient.LEVEL_VERBOSE));
         list.add(new LogLevel("Debug",LogClient.LEVEL_DEBUG));
         list.add(new LogLevel("Info",LogClient.LEVEL_INFO));
