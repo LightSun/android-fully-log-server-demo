@@ -2,7 +2,6 @@ package com.heaven7.android.log_server.demo.sample;
 
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
@@ -71,9 +70,6 @@ public class LogLookOverActivity extends BaseActivity {
 
     @InjectView(R.id.et_contains_content)
     TextInputEditText etContainsContent;
-
-    @InjectView(R.id.fab)
-    FloatingActionButton fab;
 
     private LogClient mClient;
 
