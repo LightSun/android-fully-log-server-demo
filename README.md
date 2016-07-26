@@ -1,5 +1,6 @@
 # android-fully-log-server-demo
 this is a log server demo and can show the all log.
+这个库是 [android-fully-log](https://github.com/LightSun/android-fully-log) 库的示例demo程序.
 
 
 
@@ -8,8 +9,9 @@ this is a log server demo and can show the all log.
 
 
 
-
-
+## refer lib
+  - [android-fully-log](https://github.com/LightSun/android-fully-log)
+  - [android-common-util-light](https://github.com/LightSun/android-common-util-light)
 
 
 
