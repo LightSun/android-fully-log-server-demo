@@ -1,7 +1,9 @@
 package com.heaven7.android.log_server.demo.sample;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
@@ -9,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.heaven7.android.log.IReadCallback;
@@ -18,6 +21,7 @@ import com.heaven7.android.log.LogRecord;
 import com.heaven7.android.log_server.demo.BaseActivity;
 import com.heaven7.android.log_server.demo.R;
 import com.heaven7.core.util.Logger;
+import com.heaven7.core.util.PermissionHelper;
 import com.heaven7.core.util.TextWatcherAdapter;
 import com.heaven7.core.util.Toaster;
 
@@ -70,6 +74,8 @@ public class LogLookOverActivity extends BaseActivity {
 
     @InjectView(R.id.et_contains_content)
     TextInputEditText etContainsContent;
+    @InjectView(R.id.bt_query_log)
+    Button bt_query_log;
 
     private LogClient mClient;
 
@@ -89,6 +95,7 @@ public class LogLookOverActivity extends BaseActivity {
             }
         }
     };
+    private PermissionHelper mPermissionHelper;
 
     @Override
     protected int getlayoutId() {
@@ -97,11 +104,29 @@ public class LogLookOverActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        mPermissionHelper = new PermissionHelper(this);
         mClient = new LogClient(this);
         mFilterOps = new LogFilterOptions();
 
         setSpinners();
         setListeners();
+        mPermissionHelper.startRequestPermission(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                new int[]{1}, new PermissionHelper.ICallback() {
+            @Override
+            public void onRequestPermissionResult(String requestPermission, int requestCode, boolean success) {
+                bt_query_log.setEnabled(success);
+                Logger.i(TAG, "mPermissionHelper_onRequestPermissionResult", "success = " + success);
+                if(!success){
+                    showToast(R.string.notice_request_sd_permission_failed);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        mPermissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void setListeners() {
@@ -206,12 +231,6 @@ public class LogLookOverActivity extends BaseActivity {
         spinnerLowestLevel.setSelection(0);
     }
 
-    @OnClick(R.id.fab)
-    public void onClickAddLog(View v){
-        mClient.i(TAG, "onClickAddLog", "this is a test! --->"+ new Random().nextDouble());
-        Toaster.show(this, R.string.notice_log_add_ok, Gravity.CENTER);
-    }
-
     @Override
     protected void onDestroy() {
         mClient.destroy();
@@ -220,6 +239,12 @@ public class LogLookOverActivity extends BaseActivity {
             mDialogFragment = null;
         }
         super.onDestroy();
+    }
+
+    @OnClick(R.id.fab)
+    public void onClickAddLog(View v){
+        mClient.i(TAG, "onClickAddLog", "this is a test! --->"+ new Random().nextDouble());
+        Toaster.show(this, R.string.notice_log_add_ok, Gravity.CENTER);
     }
 
     @OnClick(R.id.bt_query_log)

@@ -21,6 +21,6 @@
 
     <string name="start_query_log">begin query log</string>
     <string name="write_log">write log</string>
-    <string name="notice_log_time">the input time filter like: 2016-06-06</string>
+
 
 </resources>
