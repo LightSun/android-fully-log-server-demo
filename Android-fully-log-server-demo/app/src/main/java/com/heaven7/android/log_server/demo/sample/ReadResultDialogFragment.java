@@ -53,7 +53,7 @@ public class ReadResultDialogFragment extends DialogFragment {
         //需要用android.R.id.content这个view
         View view = inflater.inflate(R.layout.dialog_read_log_result,
                 ((ViewGroup) window.findViewById(android.R.id.content)), false);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//注意此处
+        window.setBackgroundDrawable(new ColorDrawable(Color.WHITE));//注意此处
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         //这2行,和上面的一样,注意顺序就行;
         return view;
